@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Community from '../views/Community.vue'
+import Community from '../views/community/Community.vue'
 import Movies from '../views/Movies.vue'
 
 Vue.use(VueRouter)
