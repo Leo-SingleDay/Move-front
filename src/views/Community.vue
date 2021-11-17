@@ -1,11 +1,18 @@
 <template>
-  <div></div>
+  <div>
+
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'community',
+import CommentList from '../components/comment/CommentList.vue'
 
+export default {
+  name: 'Community',
+  components: {
+    CommentList,
+  },
+  
 }
 </script>
 
