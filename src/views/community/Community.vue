@@ -2,7 +2,7 @@
   <div>
     <header>
       <h1>Community</h1>
-      <p>글쓰기</p>
+      <button><router-link to="/postForm">글쓰기</router-link></button>
     </header>
     <section>
       <post-list></post-list>
@@ -23,5 +23,8 @@ export default {
 </script>
 
 <style>
-
+button a {
+  font-weight: bold;
+  color: black;
+}
 </style>
