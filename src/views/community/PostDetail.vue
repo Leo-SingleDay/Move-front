@@ -1,22 +1,57 @@
 <template>
   <div>
-    <h1>Detail</h1>
-    <p>제목: {{post.title}}</p>
-    <p>내용: {{post.content}}</p>
-    <p>작성날짜: {{post.created_at}}</p>
-    <p>닉네임: {{post.username}}</p>
-    <p>조회수: {{post.view_count}}</p>
-    <button @click="deletePost">delete</button>
+    <div>
+      <h1>Detail</h1>
+      <p>제목: {{post.title}}</p>
+      <p>내용: {{post.content}}</p>
+      <p>작성날짜: {{post.created_at}}</p>
+      <p>닉네임: {{post.username}}</p>
+      <p>조회수: {{post.view_count}}</p>
+      <button 
+        @click="deletePost"
+        :class="{hide_button : identification}"
+      >
+        delete
+      </button>
+      <button 
+        @click="$router.push({name: 'PostForm', params: {post: post}})"
+        :class="{hide_button : identification}"
+      >
+      update
+      </button>
+    </div>
+    <div>
+      <comment-form
+        :post="post"
+      >
+      </comment-form>
+      <h2>Comment</h2>
+      <comment-list
+        v-for="comment in comments"
+        :key="comment.id"
+        :comment="comment"
+      >
+      </comment-list>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import CommentForm from '../../components/comment/CommentForm.vue'
+import CommentList from '../../components/comment/CommentList.vue'
+
 export default {
   name: 'PostDetail',
+  components: {
+    CommentForm,
+    CommentList
+  },
   data: function() {
     return {
       post : '',
+      identification : true,
+      comments : [],
     }
   },
   methods: {
@@ -40,7 +75,7 @@ export default {
         .catch(err => {
           console.log(err)
         })
-    }
+    },
   },
   created : function() {
     axios({
@@ -49,8 +84,12 @@ export default {
       headers: this.setToken()
     })
       .then(res => {
-        
-        this.post = res.data
+        this.comments = res.data.comments
+        this.post = res.data.data
+        if (res.data.isSameUser) {
+          this.identification = false
+        }
+
         const created = new Date(this.post.created_at)
         const timeDifference = new Date(Date.now())-created
 
@@ -76,5 +115,7 @@ export default {
 </script>
 
 <style>
-
+  .hide_button {
+    display: none;
+  }
 </style>
