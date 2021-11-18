@@ -1,19 +1,28 @@
 <template>
   <div>
-    <p 
+  
+    <movie-detail :movies="movies"></movie-detail>
+    <!-- <p 
       v-for="movie in movies"
       :key="movie.pk"  
     >
       {{movie.title}}
-    </p>
+      
+      
+    </p> -->
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import MovieDetail from '@/components/movie/MovieDetail.vue'
 
 export default {
+  components: { MovieDetail },
   name: 'movies',
+  component: {
+    MovieDetail,
+  },
   data: function () {
     return {
       movies : [],
