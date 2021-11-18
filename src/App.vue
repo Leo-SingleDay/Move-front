@@ -12,7 +12,9 @@
         <router-link to="/signup">Signup</router-link>
       </span>
     </div>
-    <router-view @login="isLogin=true"/>
+    <router-view 
+      @login="isLogin=true"
+    />
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <div>
     <input 
-    type="text" 
-    v-model.trim="title"
+      type="text" 
+      v-model.trim="title"
     >
     <div></div>
     <textarea 
@@ -12,7 +12,14 @@
     >
     </textarea>
     <div></div>
-    <button @click="postCreate">제출</button>
+    <button 
+      @click="postCreate"
+      :class="{hide_button : !identification}"  
+    >만들기</button>
+    <button 
+      :class="{hide_button : identification}"
+      @click="postUpdate"
+    >수정하기</button>
   </div>
 </template>
 
@@ -25,6 +32,8 @@ export default {
     return {
       title : null,
       content : null,
+      identification : true,
+      id : null,
     }
   },
   methods: {
@@ -56,7 +65,37 @@ export default {
             console.log(err)
           })
       }
-      
+    },
+    postUpdate : function() {
+      const post = {
+        id : this.id,
+        title : this.title,
+        content : this.content
+      }
+      if (post.title && post.content) {
+        axios({
+          method:'put',
+          url: `http://127.0.0.1:8000/community/${post.id}/`,
+          data: post,
+          headers: this.setToken()
+        })
+          .then(() => {
+            this.$router.push('/PostDetail?pk='+post.id)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+    }
+    
+  },
+  created: function () {
+    
+    if (this.$route.params.post){
+      this.title = this.$route.params.post.title
+      this.content = this.$route.params.post.content
+      this.id = this.$route.params.post.id
+      this.identification = false
     }
   }
 
@@ -64,5 +103,7 @@ export default {
 </script>
 
 <style>
-
+  .hide_button {
+    display: none;
+  }
 </style>
