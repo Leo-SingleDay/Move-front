@@ -1,27 +1,34 @@
 <template>
   <div>
-    <b-button 
-      v-for="movie in movies"
-      :key="movie.pk"  
-      v-b-modal.modal-scrollable
-    >
-      {{ movie.title }}
-    </b-button>
-
-    <b-modal id="modal-scrollable" scrollable title="Scrollable Content">
-      <p class="my-4" v-for="i in 20" :key="i">
-        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-        in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-      </p>
-    </b-modal>
+     <span 
+        v-for="movie in movies"
+        :key="movie.id"
+      >
+        <movie-card-detail :movie="movie"></movie-card-detail>
+      </span>
+     
   </div>
 </template>
 
 <script>
+import MovieCardDetail from '@/components/movie/MovieCardDetail.vue'
 export default {
   name: 'MovieDetail',
+  components: {
+    MovieCardDetail
+  },
   props: {
     movies: Object,
+  },
+  data: function () {
+    return {
+      show: false
+    }
+  },
+  methods: {
+    getDetail: function () {
+      this.show = true
+    }
   }
 }
 </script>

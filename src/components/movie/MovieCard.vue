@@ -18,36 +18,24 @@
         v-for="movie in movies"
         :key="movie.id"
       >
-        
         <b-carousel-slide
           :img-src="movie.poster_path"
         >
-          <!-- <b-button 
-            v-b-modal.modal-scrollable
-          >
-            <movie-card-detail :movie="movie"></movie-card-detail>
-            
-          </b-button> -->
-
-        
-        </b-carousel-slide>
-        
-        
+        <movie-card-detail :movie="movie"></movie-card-detail>
+        </b-carousel-slide>   
       </span>
      </b-carousel>
-     
-  </div>
-  
+  </div> 
 </template>
 
 <script>
-// import MovieCardDetail from '@/components/movie/MovieCardDetail.vue'
+import MovieCardDetail from '@/components/movie/MovieCardDetail.vue'
 
 export default {
   name: 'MovieCard',
-  // components: {
-  //   MovieCardDetail
-  // },
+  components: {
+    MovieCardDetail
+  },
   data: function () {
     return {
       slide: 0,
