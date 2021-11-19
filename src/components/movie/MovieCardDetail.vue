@@ -11,11 +11,27 @@
       <p class="my-4">
         {{ movie.overview }}
       </p>
+      <h4>리뷰</h4>
+      <div 
+        v-for="review in reviews" 
+        :key="review.id"
+      >
+        <p>id{{review.username}} 평점{{review.rank}} 리뷰{{review.content}} </p>
+      </div>
+      <div>
+        <h4>리뷰 작성</h4>
+        <input v-model="content" >
+        <input v-model="rank" type="number">
+        <button @click="createReview">작성</button>
+      </div>
+      
     </b-modal>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'MovieCardDetail',
   props: {
@@ -23,15 +39,60 @@ export default {
   },
   data: function () {
     return {
-      show: false
+      show: false,
+      content: null,
+      rank: null,
+      reviews: [],
     }
   },
   methods: {
+    setToken: function () {
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
+    getReview: function () {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/movies/${this.movie.id}/reviews/`,
+        headers: this.setToken()
+      })
+        .then(res => {
+          this.reviews = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    createReview: function () {
+      const reviewItem = {
+        content: this.content,
+        rank: this.rank
+      }
+      if (reviewItem.content) {
+        
+        axios({
+         method: 'post',
+         url: `http://127.0.0.1:8000/movies/${this.movie.id}/reviews/`,
+         data: reviewItem,
+         headers: this.setToken()
+       })
+         .then(res => {
+           console.log(res)
+           this.getReview()
+         })
+         .catch(err => {
+           console.log(err)
+         })
+      }
+    },
     getDetail: function () {
       this.show = true
-    }
-  }
-
+      this.getReview()
+    },
+  },
 }
 </script>
 
