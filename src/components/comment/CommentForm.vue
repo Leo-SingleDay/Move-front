@@ -1,16 +1,20 @@
 <template>
   <div>
-    <textarea 
-      cols="30" 
-      rows="10"
+    <v-textarea
+      label="One row"
+      auto-grow
+      outlined
+      rows="1"
+      row-height="15"
       v-model.trim="content"
-      >
-      
-    </textarea>
-    <button
+    >
+    </v-textarea>
+    <v-btn
+      elevation ="2"
       @click="commentCreate"
     >
-    작성</button>
+      작성
+    </v-btn>
   </div>
 </template>
 
@@ -48,6 +52,7 @@ export default {
       })
         .then(() => {
           this.content = null
+          this.$emit("createComment")
         })
     }
   }
