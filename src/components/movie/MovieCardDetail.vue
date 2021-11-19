@@ -16,8 +16,10 @@
         v-for="review in reviews" 
         :key="review.id"
       >
-        <p>id{{review.username}} 평점{{review.rank}} 리뷰{{review.content}} </p>
-      </div>
+        <span> {{review}} id: {{review.username}} 평점: {{review.rank}} {{review.content}} 
+          <button @click="deleteReview">X</button>
+        </span>
+      </div>  
       <div>
         <h4>리뷰 작성</h4>
         <input v-model="content" >
@@ -42,6 +44,8 @@ export default {
       show: false,
       content: null,
       rank: null,
+      newContent: null,
+      newRank: null,
       reviews: [],
     }
   },
@@ -69,7 +73,7 @@ export default {
     createReview: function () {
       const reviewItem = {
         content: this.content,
-        rank: this.rank
+        rank: this.rank,
       }
       if (reviewItem.content) {
         
@@ -79,7 +83,8 @@ export default {
          data: reviewItem,
          headers: this.setToken()
        })
-         .then(res => {
+         .then((res) => {
+           res.data.isEdit = false
            console.log(res)
            this.getReview()
          })
@@ -87,6 +92,20 @@ export default {
            console.log(err)
          })
       }
+    },
+    deleteReview: function () {
+      axios({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/movies/reviews/${this.reviews[0].id}/`,
+        headers: this.setToken()
+      })
+        .then(() => {
+          // console.log(res)
+          this.getReview()
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getDetail: function () {
       this.show = true

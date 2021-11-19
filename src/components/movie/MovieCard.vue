@@ -43,7 +43,7 @@ export default {
     }
   },
   props: {
-    movies: Object,
+    movies: Array,
   },
   methods: {
       onSlideStart() {
