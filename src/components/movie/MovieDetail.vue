@@ -18,7 +18,7 @@ export default {
     MovieCardDetail
   },
   props: {
-    movies: Object,
+    movies: Array,
   },
   data: function () {
     return {
