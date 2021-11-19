@@ -3,34 +3,47 @@
     <p>내용 : {{comment.content}}</p>
     <p>작성일: {{comment.created_at}}</p>
     <p>닉네임: {{comment.username}}</p>
+    <button 
+      v-if="comment.isSameUser"
+      @click="commentDelete"
+    >
+      Del
+    </button>
     <hr>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'CommentList',
   props: {
     comment : Object,
+    post : Object,
   },
   methods: {
+    setToken: function () {
+      const token = localStorage.getItem('jwt')
+      const config = {
+        Authorization: `JWT ${token}`
+      }
+      return config
+    },
 
+    commentDelete : function () {
+      axios({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/community/${this.post.id}/comments/${this.comment.id}/`,
+        headers: this.setToken()
+      })
+        .then(() => {
+          this.$emit("deleteComment")
+        })
+    },
   },
   created: function() {
-    const created = new Date(this.comment.created_at)
-    const timeDifference = new Date(Date.now())-created
 
-    const diff_day = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60 * 24));
-    const diff_hour = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const diff_minute = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-    if (diff_day) {
-      this.comment.created_at = `${diff_day}일전`
-    } else if(diff_hour) {
-      this.comment.created_at = `${diff_hour}시간전`
-    } else {
-      this.comment.created_at = `${diff_minute}분전`
-    }
   }
 }
 </script>

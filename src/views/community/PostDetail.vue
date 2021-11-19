@@ -23,6 +23,7 @@
     <div>
       <comment-form
         :post="post"
+        @createComment="loadPost"
       >
       </comment-form>
       <h2>Comment</h2>
@@ -30,6 +31,8 @@
         v-for="comment in comments"
         :key="comment.id"
         :comment="comment"
+        :post="post"
+        @deleteComment="loadPost"
       >
       </comment-list>
     </div>
@@ -76,39 +79,67 @@ export default {
           console.log(err)
         })
     },
-  },
-  created : function() {
-    axios({
-      method: 'get',
-      url: `http://127.0.0.1:8000/community/${this.$route.query.pk}/`,
-      headers: this.setToken()
-    })
-      .then(res => {
-        this.comments = res.data.comments
-        this.post = res.data.data
-        if (res.data.isSameUser) {
-          this.identification = false
-        }
+    loadPost : function () {
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/community/${this.$route.query.pk}/`,
+        headers: this.setToken()
+      })
+        .then(res => {
+          this.comments = res.data.comments
+          this.loadComment()
+          this.post = res.data.data
+          if (res.data.isSameUser) {
+            this.identification = false
+          }
 
-        const created = new Date(this.post.created_at)
+          const created = new Date(this.post.created_at)
+          const timeDifference = new Date(Date.now())-created
+
+          const diff_day = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60 * 24));
+          const diff_hour = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const diff_minute = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+
+          if (diff_day) {
+            this.post.created_at = `${diff_day}일전`
+          } else if(diff_hour) {
+            this.post.created_at = `${diff_hour}시간전`
+          } else {
+            this.post.created_at = `${diff_minute}분전`
+          }
+
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    loadComment : function() {
+      this.comments = this.comments.map(comment=> {
+        const created = new Date(comment.created_at)
         const timeDifference = new Date(Date.now())-created
 
         const diff_day = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60 * 24));
         const diff_hour = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const diff_minute = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
 
+        let diff = ''
         if (diff_day) {
-          this.post.created_at = `${diff_day}일전`
+          diff = `${diff_day}일전`
         } else if(diff_hour) {
-          this.post.created_at = `${diff_hour}시간전`
+          diff = `${diff_hour}시간전`
         } else {
-          this.post.created_at = `${diff_minute}분전`
+          diff = `${diff_minute}분전`
         }
-        
+        return {
+          ...comment,
+          created_at : diff
+        }
       })
-      .catch(err => {
-        console.log(err)
-      })
+    },
+
+  },
+  created : function() {
+    this.loadPost()
   }
 
 }
