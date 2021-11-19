@@ -1,7 +1,13 @@
 <template>
   <div>
+    <b-button
+      @click="getDetail"
+    >
+      {{movie.title}}
+      moreinfo
+    </b-button>
 
-    <b-modal id="modal-scrollable" scrollable :title="movie.title">
+    <b-modal v-model="show" id="modal-scrollable" scrollable :title="movie.title">
       <p class="my-4">
         {{ movie.overview }}
       </p>
@@ -15,6 +21,16 @@ export default {
   props: {
     movie: Object
   },
+  data: function () {
+    return {
+      show: false
+    }
+  },
+  methods: {
+    getDetail: function () {
+      this.show = true
+    }
+  }
 
 }
 </script>
