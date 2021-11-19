@@ -66,6 +66,15 @@ export default {
 </script>
 
 <style>
+:root {
+  --gold-color: rgb(255, 200, 75);
+  --background-color: rgb(34, 40, 49);
+  --white-color: rgb(238, 238, 238);
+  --gray-color: rgb(75, 85, 99);
+  /* 컬러 속성 쓰는법 :
+  color : var(--background-color) */
+}
+
 #app {
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   -webkit-font-smoothing: antialiased;

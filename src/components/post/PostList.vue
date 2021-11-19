@@ -1,5 +1,5 @@
 <template>  
-  <v-card>
+  <v-card class="card" style="background : var(--background-color)">
     <v-card-title>
       <v-text-field
         v-model="search"
@@ -100,5 +100,7 @@ export default {
 </script>
 
 <style>
-
+  .card {
+    background : var(--background-color)
+  }
 </style>
