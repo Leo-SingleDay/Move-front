@@ -7,18 +7,20 @@
       <p>작성날짜: {{post.created_at}}</p>
       <p>닉네임: {{post.username}}</p>
       <p>조회수: {{post.view_count}}</p>
-      <button 
+      <v-btn 
         @click="deletePost"
         :class="{hide_button : identification}"
+        elevation="2"
       >
         delete
-      </button>
-      <button 
+      </v-btn>
+      <v-btn 
         @click="$router.push({name: 'PostForm', params: {post: post}})"
         :class="{hide_button : identification}"
+        elevation="2"
       >
       update
-      </button>
+      </v-btn>
     </div>
     <div>
       <comment-form
