@@ -2,7 +2,6 @@
   <div>
     <header>
       <h1>Community</h1>
-      <button><router-link to="/postForm">글쓰기</router-link></button>
     </header>
     <section>
       <post-list></post-list>

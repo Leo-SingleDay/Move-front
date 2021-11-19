@@ -1,23 +1,32 @@
-<template>
-
-  <table>
-    <tr>
-      <th>제목</th>
-      <th>글쓴이</th>
-      <th>작성일자</th>
-      <th>조회수</th>
-    </tr>
-    <tr
-      v-for="post in posts"
-      :key="post.id"
-      @click="$router.push('/PostDetail?pk='+post.id)"
+<template>  
+  <v-card>
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+      <v-spacer></v-spacer>
+      <v-btn
+        elevation="2"
+        @click="$router.push('/postForm')"
+      >
+        작성
+      </v-btn>
+    </v-card-title>
+    <v-data-table
+      class="grey darken-2"
+      :headers="headers"
+      :items="posts"
+      @click:row="goDetail"
+      :items-per-page="5"
+      :search="search"
+      dark
     >
-      <td>{{post.title}}</td>
-      <td>{{post.username}}</td>
-      <td>{{post.created_at}}</td>
-      <td>{{post.view_count}}</td>
-    </tr>
-  </table>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
@@ -27,10 +36,20 @@ export default {
   name:'PostList',
   data: function() {
     return {
+      search : '',
       posts: [],
+      headers: [
+        { text:'제목', value:'title', sortable: true},
+        { text:'글쓴이', value:'username', sortable: true},
+        { text:'작성일자', value:'created_at', sortable: true},
+        { text:'조회수', value:'view_count', sortable: true},
+      ]
     }
   },
   methods: {
+    goDetail : function(value) {
+      this.$router.push('/PostDetail?pk='+value.id)
+    },
     setToken: function () {
       const token = localStorage.getItem('jwt')
       const config = {

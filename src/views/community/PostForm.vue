@@ -1,25 +1,36 @@
 <template>
   <div>
-    <input 
-      type="text" 
+    <br>
+    <br>
+    <v-textarea
+      label="제목을 입력하세요."
+      auto-grow
+      outlined
+      rows="1"
+      row-height="15"
       v-model.trim="title"
-    >
-    <div></div>
-    <textarea 
-      cols="30" 
-      rows="10"
+    ></v-textarea>
+    <v-textarea
+      outlined
+      name=""
+      label="내용을 입력하세요."
       v-model.trim="content"
-    >
-    </textarea>
+    ></v-textarea>
     <div></div>
-    <button 
+    <v-btn 
       @click="postCreate"
-      :class="{hide_button : !identification}"  
-    >만들기</button>
-    <button 
+      :class="{hide_button : !identification}"
+      elevation="2"
+    >
+      만들기
+    </v-btn>
+    <v-btn 
       :class="{hide_button : identification}"
       @click="postUpdate"
-    >수정하기</button>
+      elevation="2"
+    >
+      수정하기
+    </v-btn>
   </div>
 </template>
 
