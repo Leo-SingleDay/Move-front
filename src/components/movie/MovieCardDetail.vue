@@ -8,6 +8,12 @@
     </b-button>
 
     <b-modal v-model="show" id="modal-scrollable" scrollable :title="movie.title">
+      <button @click="like">좋아요</button>
+      <span v-show="likeInfo.like">{{likeInfo.count}}</span>
+      <span v-show="!likeInfo.like">{{countLike}}</span>
+      <v-icon v-show="likeInfo.like" color="red">mdi-heart</v-icon>
+      <v-icon v-show="!likeInfo.like" color="red">mdi-heart-outline</v-icon>
+
       <p class="my-4">
         {{ movie.overview }}
       </p>
@@ -47,6 +53,10 @@ export default {
       newContent: null,
       newRank: null,
       reviews: [],
+      loginUser: null,
+      likeInfo: {
+        count: 0,
+      },
     }
   },
   methods: {
@@ -56,6 +66,19 @@ export default {
         Authorization: `JWT ${token}`
       }
       return config
+    },
+    like: function () {
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/movies/${this.movie.id}/like/`,
+        headers: this.setToken()
+      })
+        .then(res => {
+          this.likeInfo = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getReview: function () {
       axios({
@@ -85,7 +108,7 @@ export default {
        })
          .then((res) => {
            res.data.isEdit = false
-           console.log(res)
+          //  console.log(res)
            this.getReview()
          })
          .catch(err => {
@@ -110,6 +133,11 @@ export default {
     getDetail: function () {
       this.show = true
       this.getReview()
+    },
+  },
+  computed: {
+    countLike: function () {
+      return this.movie.like_users.length
     },
   },
 }
