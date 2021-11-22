@@ -8,21 +8,29 @@
     </b-button>
 
     <b-modal v-model="show" id="modal-scrollable" scrollable :title="movie.title">
-      <button @click="like">좋아요</button>
+      <button @click="like">
+        <v-icon v-show="likeInfo.like" color="red">mdi-heart</v-icon>
+        <v-icon v-show="!likeInfo.like" color="red">mdi-heart-outline</v-icon>
+      </button>
       <span v-show="likeInfo.like">{{likeInfo.count}}</span>
       <span v-show="!likeInfo.like">{{countLike}}</span>
-      <v-icon v-show="likeInfo.like" color="red">mdi-heart</v-icon>
-      <v-icon v-show="!likeInfo.like" color="red">mdi-heart-outline</v-icon>
+      
 
-      <p class="my-4">
-        {{ movie.overview }}
-      </p>
+      <span class="my-4">
+        <img :src="movie.poster_path" alt="poser-image">
+        <h4>장르</h4>
+        <span v-for="genre in movie.genres" :key="genre">{{ genre }} </span>
+        <h4>개봉일</h4>
+        <p>{{ movie.release_date }}</p>
+        <h4>줄거리</h4>
+        <p>{{ movie.overview }}</p>
+      </span>
       <h4>리뷰</h4>
       <div 
         v-for="review in reviews" 
         :key="review.id"
       >
-        <span> {{review}} id: {{review.username}} 평점: {{review.rank}} {{review.content}} 
+        <span> id: {{review.username}} 평점: {{review.rank}} {{review.content}} 
           <button @click="deleteReview">X</button>
         </span>
       </div>  
