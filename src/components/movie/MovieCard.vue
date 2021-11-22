@@ -1,73 +1,91 @@
 <template>
   <div>
-    <b-carousel
-      class="carousel-height hc"
-      id="carousel-1"
-      v-model="slide"
-      :interval="4000"
-      controls
-      indicators
-      background="#ababab"
-      img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
-      @sliding-start="onSlideStart"
-      @sliding-end="onSlideEnd"
-    >
-      <span 
-        v-for="movie in movies"
-        :key="movie.id"
+      <swiper 
+        class="swiper" 
+        :options="swiperOption"
       >
-        <b-carousel-slide
-          :img-src="movie.poster_path"
+        <swiper-slide 
+          v-for="movie in movies"
+          :key="movie.id"
+          :style="{'background-image': 'url('+ movie.poster_path +')'}"
         >
-        <movie-card-detail :movie="movie"></movie-card-detail>
-        </b-carousel-slide>   
-      </span>
-     </b-carousel>
+          <movie-card-detail :movie="movie"></movie-card-detail>
+        </swiper-slide>
+        
+        <div class="swiper-pagination swiper-pagination-white" slot="pagination"></div>
+        <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+        <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
+      </swiper>
   </div> 
 </template>
 
 <script>
-import MovieCardDetail from '@/components/movie/MovieCardDetail.vue'
+  import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+  import 'swiper/css/swiper.css'
+  import MovieCardDetail from '@/components/movie/MovieCardDetail'
 
-export default {
-  name: 'MovieCard',
-  components: {
-    MovieCardDetail
-  },
-  data: function () {
-    return {
-      slide: 0,
-      sliding: null
-    }
-  },
-  props: {
-    movies: Array,
-  },
-  methods: {
-      onSlideStart() {
-        this.sliding = true
-      },
-      onSlideEnd() {
-        this.sliding = false
+  export default {
+    name: 'swiper-example-fade-effect',
+    title: 'Fade effect',
+    components: {
+      Swiper,
+      SwiperSlide,
+      MovieCardDetail
+    },
+    props: {
+    movies: Array
+    },
+        data() {
+      return {
+        swiperOption: {
+          effect: 'coverflow',
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: 'auto',
+          coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows : true
+          },
+          pagination: {
+            el: '.swiper-pagination'
+          }
+        }
       }
+    }
   }
-}
 </script>
 
-<style>
-.carousel-height {
-   height:300px;
-   /* width: 20%; */
- }
-.hc {
-  width:200px;
-  left:0;
-  right:0;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-
+<style lang="scss" scoped>
+  .example-3d {
+    width: 100%;
+    height: 400px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .swiper {
+    height: 100%;
+    width: 100%;
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 300px;
+      height: 300px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      background-color: #2C8DFB;
+      background-position: center;
+      background-size: cover;
+      color: white;
+    }
+    .swiper-pagination {
+      .swiper-pagination-bullet.swiper-pagination-bullet-active {
+        background-color: white;
+      }
+    }
+  }
 </style>

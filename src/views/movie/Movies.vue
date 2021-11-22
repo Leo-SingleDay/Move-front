@@ -1,26 +1,30 @@
 <template>
   <div>
-    <h3>추천</h3>
+    <h3 class="font-gold">이벤트</h3>
+    <test></test>
+    <h3 class="font-gold">추천</h3>
     <movie-card :movies="recommendMovies"></movie-card>
-    <h3>최신</h3>
+    <h3 class="font-gold">최신</h3>
     <movie-card :movies="latestMovies"></movie-card>
-    <h3>인기</h3>
+    <h3 class="font-gold">인기</h3>
     <movie-card :movies="popularityMovies"></movie-card>
-    <h3>전체</h3>
-    <movie-detail :movies="allMovies"></movie-detail>
+    <h3 class="font-gold">전체</h3>
+    <movie-all :movies="allMovies"></movie-all>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import MovieDetail from '@/components/movie/MovieDetail.vue'
+import MovieAll from '@/components/movie/MovieAll.vue'
 import MovieCard from '@/components/movie/MovieCard.vue'
+import Test from '@/components/movie/Test.vue'
 
 export default {
   name: 'movies',
   components: {
-    MovieDetail,
-    MovieCard
+    MovieAll,
+    MovieCard,
+    Test
   },
   data: function () {
     return {
@@ -101,5 +105,10 @@ export default {
 </script>
 
 <style>
-
+  .bg-dark {
+    background-color: var(--background-color);
+  }
+  .font-gold {
+    color: var(--gold-color);
+  }
 </style>
