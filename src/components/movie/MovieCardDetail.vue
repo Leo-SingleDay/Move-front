@@ -13,7 +13,7 @@
         <v-icon v-show="!likeInfo.like" color="red">mdi-heart-outline</v-icon>
       </button>
       <span v-show="likeInfo.like">{{likeInfo.count}}</span>
-      <span v-show="!likeInfo.like">{{countLike}}</span>
+      <span v-show="!likeInfo.like">{{likeInfo.count}}</span>
       
 
       <span class="my-4">
@@ -63,7 +63,7 @@ export default {
       reviews: [],
       loginUser: null,
       likeInfo: {
-        count: 0,
+        
       },
     }
   },
@@ -78,6 +78,19 @@ export default {
     like: function () {
       axios({
         method: 'post',
+        url: `http://127.0.0.1:8000/movies/${this.movie.id}/like/`,
+        headers: this.setToken()
+      })
+        .then(res => {
+          this.likeInfo = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getLike: function () {
+      axios({
+        method: 'get',
         url: `http://127.0.0.1:8000/movies/${this.movie.id}/like/`,
         headers: this.setToken()
       })
@@ -141,6 +154,7 @@ export default {
     getDetail: function () {
       this.show = true
       this.getReview()
+      this.getLike()
     },
   },
   computed: {
