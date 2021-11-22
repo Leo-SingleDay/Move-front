@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <br>
-    <br>
+  <div class="form-container">
     <v-textarea
       label="제목을 입력하세요."
       auto-grow
@@ -9,12 +7,14 @@
       rows="1"
       row-height="15"
       v-model.trim="title"
+      dark
     ></v-textarea>
     <v-textarea
       outlined
       name=""
       label="내용을 입력하세요."
       v-model.trim="content"
+      dark
     ></v-textarea>
     <div></div>
     <v-btn 
@@ -116,5 +116,11 @@ export default {
 <style>
   .hide_button {
     display: none;
+  }
+
+  .form-container {
+    background: var(--gray-color);
+    padding: 30px;
+    border: 1px solid var(--white-color);
   }
 </style>

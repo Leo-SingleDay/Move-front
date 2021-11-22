@@ -96,19 +96,23 @@ export default {
           }
 
           const created = new Date(this.post.created_at)
-          const timeDifference = new Date(Date.now())-created
+          const seconds = (new Date()-created)/1000
+          const minutes = Math.floor(seconds / 60)
+          const hours = Math.floor(minutes / 60)
+          const days = Math.floor(hours / 24)
 
-          const diff_day = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60 * 24));
-          const diff_hour = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          const diff_minute = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-
-          if (diff_day) {
-            this.post.created_at = `${diff_day}일전`
-          } else if(diff_hour) {
-            this.post.created_at = `${diff_hour}시간전`
+          let result = ''
+          if (seconds < 60) {
+            result = '방금 전'
+          } else if (minutes < 60) {
+            result = minutes + "분 전"
+          } else if (hours < 60) {
+            result = hours + "시간 전"
           } else {
-            this.post.created_at = `${diff_minute}분전`
+            result = days + "일 전"
           }
+          this.post.created_at = result
+          
 
         })
         .catch(err => {
@@ -118,23 +122,25 @@ export default {
     loadComment : function() {
       this.comments = this.comments.map(comment=> {
         const created = new Date(comment.created_at)
-        const timeDifference = new Date(Date.now())-created
+        const seconds = (new Date()-created)/1000
 
-        const diff_day = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60 * 24));
-        const diff_hour = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const diff_minute = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const minutes = Math.floor(seconds / 60)
+        const hours = Math.floor(minutes / 60)
+        const days = Math.floor(hours / 24)
 
-        let diff = ''
-        if (diff_day) {
-          diff = `${diff_day}일전`
-        } else if(diff_hour) {
-          diff = `${diff_hour}시간전`
+        let result = ''
+        if (seconds < 60) {
+          result = '방금 전'
+        } else if (minutes < 60) {
+          result = minutes + "분 전"
+        } else if (hours < 60) {
+          result = hours + "시간 전"
         } else {
-          diff = `${diff_minute}분전`
+          result = days + "일 전"
         }
         return {
           ...comment,
-          created_at : diff
+          created_at : result
         }
       })
     },

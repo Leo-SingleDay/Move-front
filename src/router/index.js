@@ -6,6 +6,7 @@ import PostForm from '../views/community/PostForm.vue'
 import PostDetail from '../views/community/PostDetail.vue'
 import Login from '../views/accounts/Login.vue'
 import Signup from '../views/accounts/Signup.vue'
+import Intro from '../views/community/Intro.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/signup',
     name: 'Signup',
     component: Signup,
+  },
+  {
+    path: '/intro',
+    name: 'Intro',
+    component: Intro,
   },
 ]
 

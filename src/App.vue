@@ -1,21 +1,23 @@
-
 <template>
   <v-app>
     <v-app-bar
       app
-      color="grey darken-2 accent-4"
-      dense
+      class="app-bar"
       dark
+      style="
+        border-bottom: 1px solid var(--gold-color);
+        background: var(--background-color);
+      "
     >
     <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    <v-toolbar-title>Page title</v-toolbar-title>
+    <v-toolbar-title>M O V E !</v-toolbar-title>
     <v-spacer></v-spacer>
-
       <div id="nav">
         <span v-if="isLogin"> 
           <router-link to="/movies">Movies</router-link> |  
           <router-link to="/community">Community</router-link> |  
           <router-link @click.native="logout" to="#">Logout</router-link>
+          <router-link to="/intro">INTRO</router-link> |  
         </span>
         <span v-else>
           <router-link to="/login">Login</router-link> |
@@ -23,8 +25,9 @@
         </span>
       </div>
     </v-app-bar>
-    <v-main>
+    <hr>
 
+    <v-main>
       <v-container grid-list-md>
         <router-view 
         @login="isLogin=true"
@@ -42,7 +45,7 @@
 
 <script>
 export default {
-  name: 'App',
+  name: '',
   data: function () {
     return {
       isLogin: false,
@@ -80,7 +83,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: var(--white-color);
+  background: var(--background-color);
 }
 
 #nav {
@@ -90,9 +94,12 @@ export default {
 #nav a {
   font-weight: bold;
   color: gray;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 #nav a.router-link-exact-active {
   color: white;
 }
+
 </style>
