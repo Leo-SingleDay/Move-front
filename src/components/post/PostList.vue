@@ -1,12 +1,20 @@
 <template>  
-  <v-card class="card" style="background : var(--background-color)">
-    <v-card-title>
+  <v-card 
+    class="card" 
+    style=
+    "
+      background : var(--gray-color);
+      margin-top : 40px;
+    ">
+    <v-card-title style="border-bottom : 1px solid white">
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
         label="Search"
         single-line
         hide-details
+        color="var(--gold-color)"
+        dark
       ></v-text-field>
       <v-spacer></v-spacer>
       <v-btn
@@ -17,13 +25,17 @@
       </v-btn>
     </v-card-title>
     <v-data-table
-      class="grey darken-2"
       :headers="headers"
       :items="posts"
       @click:row="goDetail"
-      :items-per-page="5"
+      :items-per-page="10"
       :search="search"
       dark
+      style=
+      "
+        background : var(--gray-color)
+      "
+      class="row-pointer"
     >
     </v-data-table>
   </v-card>
@@ -69,23 +81,25 @@ export default {
           this.posts = res.data
           this.posts = this.posts.map(post=> {
             const created = new Date(post.created_at)
-            const timeDifference = new Date(Date.now())-created
+            const seconds = (new Date()-created)/1000
 
-            const diff_day = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60 * 24));
-            const diff_hour = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const diff_minute = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const minutes = Math.floor(seconds / 60)
+            const hours = Math.floor(minutes / 60)
+            const days = Math.floor(hours / 24)
 
-            let diff = ''
-            if (diff_day) {
-              diff = `${diff_day}일전`
-            } else if(diff_hour) {
-              diff = `${diff_hour}시간전`
+            let result = ''
+            if (seconds < 60) {
+              result = '방금 전'
+            } else if (minutes < 60) {
+              result = minutes + "분 전"
+            } else if (hours < 60) {
+              result = hours + "시간 전"
             } else {
-              diff = `${diff_minute}분전`
+              result = days + "일 전"
             }
             return {
               ...post,
-              created_at : diff
+              created_at : result
             }
           })
           
@@ -102,5 +116,8 @@ export default {
 <style>
   .card {
     background : var(--background-color)
+  }
+  .row-pointer > .v-data-table__wrapper > table > tbody > tr:hover {  
+    cursor: pointer;
   }
 </style>
