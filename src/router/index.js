@@ -42,7 +42,7 @@ const routes = [
     component: Signup,
   },
   {
-    path: '/intro',
+    path: '/',
     name: 'Intro',
     component: Intro,
   },
