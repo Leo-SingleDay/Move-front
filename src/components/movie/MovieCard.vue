@@ -8,9 +8,9 @@
           <swiper-slide 
             v-for="movie in movies"
             :key="movie.id"
-            :style="{'background-image': 'url('+ movie.poster_path +')'}"
+            
           >
-           
+           <!-- :style="{'background-image': 'url('+ movie.poster_path +')'}" -->
               <movie-card-detail :movie="movie"></movie-card-detail>
         
             
@@ -65,7 +65,7 @@
 <style lang="scss" scoped>
   .example-3d {
     width: 100%;
-    height: 400px;
+    height: 450px;
     padding-top: 50px;
     padding-bottom: 50px;
   }
@@ -81,9 +81,9 @@
       text-align: center;
       font-weight: bold;
       font-size: 20px;
-      background-color: #2C8DFB;
+      background-color: var(--background-color);
       background-position: center;
-      background-size: cover;
+      background-size: 400px 300px;
       color: white;
     }
     .swiper-pagination {

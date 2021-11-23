@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3 class="font-gold">이벤트</h3>
     <event-movie-list :movies="eventMovies"></event-movie-list>
     <h3 class="font-gold">추천</h3>
     <movie-card :movies="recommendMovies"></movie-card>
