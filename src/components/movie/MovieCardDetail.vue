@@ -1,12 +1,13 @@
 <template>
   <div>
-    <b-button
+    
+    <b-button 
       @click="getDetail"
     >
       {{movie.title}}
-      moreinfo
+      MoreInfo
     </b-button>
-
+    
     <b-modal v-model="show" id="modal-scrollable" scrollable :title="movie.title">
       <button @click="like">
         <v-icon v-show="likeInfo.like" color="red">mdi-heart</v-icon>
@@ -25,19 +26,38 @@
         <h4>줄거리</h4>
         <p>{{ movie.overview }}</p>
       </span>
+
       <h4>리뷰</h4>
       <div 
         v-for="review in reviews" 
         :key="review.id"
       >
-        <span> id: {{review.username}} 평점: {{review.rank}} {{review.content}} 
-          <button @click="deleteReview">X</button>
+        <span> 
+          <v-rating
+            :value="review.rank"
+            icon-label="custom icon label text {0} of {1}"
+            readonly
+          >
+          </v-rating>
+          {{review.username}} {{review.content}} 
+          <button @click="deleteReview"><v-icon>mdi-close</v-icon></button>
+          <v-divider></v-divider>
         </span>
       </div>  
       <div>
         <h4>리뷰 작성</h4>
-        <input v-model="content" >
-        <input v-model="rank" type="number">
+        <!-- <input v-model="content" > -->
+        <!-- <input v-model="rank" type"number"> -->
+        <v-text-field
+          v-model.trim="content"
+          label="세글자 이상 작성해주세요!!"
+          :rules="rules"
+          hide-details="auto"
+        ></v-text-field>
+        <v-rating
+          v-model.trim="rank"
+          icon-label="custom icon label text {0} of {1}"
+        ></v-rating>
         <button @click="createReview">작성</button>
       </div>
       
@@ -51,15 +71,17 @@ import axios from 'axios'
 export default {
   name: 'MovieCardDetail',
   props: {
-    movie: Object
+    movie: Object,
   },
   data: function () {
     return {
       show: false,
       content: null,
-      rank: null,
-      newContent: null,
-      newRank: null,
+      rank: 3,
+      rules: [
+        value => !!value || 'Required.',
+        value => (value && value.length >= 3) || 'Min 3 characters',
+      ],
       reviews: [],
       loginUser: null,
       likeInfo: {
@@ -127,9 +149,9 @@ export default {
          data: reviewItem,
          headers: this.setToken()
        })
-         .then((res) => {
-           res.data.isEdit = false
-          //  console.log(res)
+         .then(() => {
+           this.content = null
+           this.rank = 3
            this.getReview()
          })
          .catch(err => {

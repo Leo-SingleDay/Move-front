@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="font-gold">이벤트</h3>
-    <test></test>
+    <event-movie-list :movies="eventMovies"></event-movie-list>
     <h3 class="font-gold">추천</h3>
     <movie-card :movies="recommendMovies"></movie-card>
     <h3 class="font-gold">최신</h3>
@@ -17,18 +17,19 @@
 import axios from 'axios'
 import MovieAll from '@/components/movie/MovieAll.vue'
 import MovieCard from '@/components/movie/MovieCard.vue'
-import Test from '@/components/movie/Test.vue'
+import EventMovieList from '@/components/movie/EventMovieList.vue'
 
 export default {
   name: 'movies',
   components: {
     MovieAll,
     MovieCard,
-    Test
+    EventMovieList
   },
   data: function () {
     return {
       allMovies: [],
+      eventMovies: [],
       recommendMovies: [],
       latestMovies: [],
       popularityMovies: [],
@@ -50,6 +51,19 @@ export default {
       })
         .then(res => {
           this.allMovies = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getEventMovies: function() {
+      axios({
+        method: 'get',
+        url: 'http://127.0.0.1:8000/movies/event/',
+        headers: this.setToken()
+      })
+        .then(res => {
+          this.eventMovies = res.data
         })
         .catch(err => {
           console.log(err)
@@ -97,6 +111,7 @@ export default {
   },
     created: function () {
     this.getAllMovies()
+    this.getEventMovies()
     this.getRecommendMovies()
     this.getLatestMovies()
     this.getPopularityMovies()

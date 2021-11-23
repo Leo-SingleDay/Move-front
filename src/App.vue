@@ -17,7 +17,7 @@
           <router-link to="/movies">Movies</router-link> |  
           <router-link to="/community">Community</router-link> |  
           <router-link @click.native="logout" to="#">Logout</router-link>
-          <router-link to="/intro">INTRO</router-link> |  
+          <router-link to="">INTRO</router-link> |  
         </span>
         <span v-else>
           <router-link to="/login">Login</router-link> |
