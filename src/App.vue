@@ -9,15 +9,15 @@
         background: var(--background-color);
       "
     >
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    <v-toolbar-title>M O V E !</v-toolbar-title>
-    <v-spacer></v-spacer>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-toolbar-title>M O V E !</v-toolbar-title>
+      <v-spacer></v-spacer>
       <div id="nav">
         <span v-if="isLogin"> 
           <router-link to="/movies">Movies</router-link> |  
           <router-link to="/community">Community</router-link> |  
           <router-link @click.native="logout" to="#">Logout</router-link>
-          <router-link to="">INTRO</router-link> |  
+          <router-link to="/">INTRO</router-link> |  
         </span>
         <span v-else>
           <router-link to="/login">Login</router-link> |
@@ -55,7 +55,7 @@ export default {
     logout: function () {
       this.isLogin = false
       localStorage.removeItem('jwt')
-      this.$router.push({ name: 'Login' })
+      this.$router.push({ name: 'Intro' })
     }
   },
   created: function () {
@@ -102,4 +102,10 @@ export default {
   color: white;
 }
 
+.title_letter {
+  color : var(--gold-color);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom : 40px;
+}
 </style>

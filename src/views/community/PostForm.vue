@@ -1,37 +1,93 @@
 <template>
-  <div class="form-container">
-    <v-textarea
-      label="제목을 입력하세요."
-      auto-grow
-      outlined
-      rows="1"
-      row-height="15"
-      v-model.trim="title"
-      dark
-    ></v-textarea>
-    <v-textarea
-      outlined
-      name=""
-      label="내용을 입력하세요."
-      v-model.trim="content"
-      dark
-    ></v-textarea>
-    <div></div>
-    <v-btn 
-      @click="postCreate"
-      :class="{hide_button : !identification}"
-      elevation="2"
-    >
-      만들기
-    </v-btn>
-    <v-btn 
-      :class="{hide_button : identification}"
-      @click="postUpdate"
-      elevation="2"
-    >
-      수정하기
-    </v-btn>
-  </div>
+  <v-dialog
+    transition="dialog-top-transition"
+    max-width="1000"
+  >
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn
+        :class="{hide_button : !isCreate}"
+        style=
+        "
+          background: var(--gold-color);
+        "
+        v-bind="attrs"
+        v-on="on"
+      >작성</v-btn>
+      
+      <v-btn
+        :class="{hide_button : !identification}"
+        style=
+        "
+          background: var(--gold-color);
+        "
+        v-bind="attrs"
+        v-on="on"
+      >수정</v-btn>
+    </template>
+    <template v-slot:default="dialog">
+      <v-card 
+        style=
+        "
+          width: 1000px;
+        "
+      >
+        <v-toolbar
+          v-if="!identification"
+          style="background: var(--background-color);"
+          dark
+        >POST CREATE
+        </v-toolbar>
+        <v-toolbar
+          v-if="identification"
+          style="background: var(--background-color);"
+          dark
+        >POST UPDATE
+        </v-toolbar>
+        <v-card-text style="background: var(--background-color);">
+          <div class="form-container">
+            <v-textarea
+              label="제목을 입력하세요."
+              auto-grow
+              outlined
+              rows="1"
+              row-height="15"
+              v-model.trim="title"
+              dark
+            ></v-textarea>
+            <v-textarea
+              outlined
+              name=""
+              label="내용을 입력하세요."
+              v-model.trim="content"
+              dark
+            ></v-textarea>
+            <div></div>
+            <v-btn 
+              @click="postCreate"
+              :class="{hide_button : identification}"
+              elevation="2"
+            >
+              작성
+            </v-btn>
+            <v-btn 
+              :class="{hide_button : !identification}"
+              @click="postUpdate"
+              elevation="2"
+            >
+              수정
+            </v-btn>
+          </div>
+        </v-card-text>
+        <v-card-actions class="justify-end" style="background: var(--background-color);">
+          <v-btn
+            text
+            @click="dialog.value = false"
+            style="color: var(--white-color);"
+          >Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </template>
+  </v-dialog>
 </template>
 
 <script>
@@ -41,11 +97,15 @@ export default {
   name:'PostForm',
   data: function() {
     return {
-      title : null,
-      content : null,
-      identification : true,
-      id : null,
+      title : '',
+      content : '',
+      id : '',
     }
+  },
+  props: {
+    post : Object,
+    identification : Boolean,
+    isCreate : Boolean,
   },
   methods: {
     setToken: function () {
@@ -69,8 +129,7 @@ export default {
           headers: this.setToken()
         })
           .then(res => {
-            console.log(res)
-            this.$router.push({ name: 'Community' })
+            this.$router.push('/PostDetail?pk='+res.data.id)
           })
           .catch(err => {
             console.log(err)
@@ -91,7 +150,8 @@ export default {
           headers: this.setToken()
         })
           .then(() => {
-            this.$router.push('/PostDetail?pk='+post.id)
+            // this.$router.push('/PostDetail?pk='+post.id)
+            this.$router.push('/Community')
           })
           .catch(err => {
             console.log(err)
@@ -101,12 +161,13 @@ export default {
     
   },
   created: function () {
+    console.log(this.isCreate)
     
-    if (this.$route.params.post){
-      this.title = this.$route.params.post.title
-      this.content = this.$route.params.post.content
-      this.id = this.$route.params.post.id
-      this.identification = false
+    if (this.identification){
+      this.title = this.post.title
+      this.content = this.post.content
+      this.id = this.post.id
+      console.log(this.title)
     }
   }
 
@@ -119,7 +180,7 @@ export default {
   }
 
   .form-container {
-    background: var(--gray-color);
+    background: var(--background-color);
     padding: 30px;
     border: 1px solid var(--white-color);
   }

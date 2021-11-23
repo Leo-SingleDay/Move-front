@@ -1,43 +1,51 @@
 <template>
-  <div>
-    <div>
-      <h1>Detail</h1>
-      <p>제목: {{post.title}}</p>
-      <p>내용: {{post.content}}</p>
-      <p>작성날짜: {{post.created_at}}</p>
-      <p>닉네임: {{post.username}}</p>
-      <p>조회수: {{post.view_count}}</p>
-      <v-btn 
-        @click="deletePost"
-        :class="{hide_button : identification}"
-        elevation="2"
+  <div
+    
+  >
+    <header>
+      <h1 class="title_letter">COMMUNITY</h1>
+    </header>
+    <section
+      style="border: 1px solid white"
+    >
+      <div
+        v-if="post !== null"
       >
-        delete
-      </v-btn>
-      <v-btn 
-        @click="$router.push({name: 'PostForm', params: {post: post}})"
-        :class="{hide_button : identification}"
-        elevation="2"
-      >
-      update
-      </v-btn>
-    </div>
-    <div>
-      <comment-form
-        :post="post"
-        @createComment="loadPost"
-      >
-      </comment-form>
-      <h2>Comment</h2>
-      <comment-list
-        v-for="comment in comments"
-        :key="comment.id"
-        :comment="comment"
-        :post="post"
-        @deleteComment="loadPost"
-      >
-      </comment-list>
-    </div>
+        <span>제목: {{post.title}}</span>
+        <v-spacer></v-spacer>
+        <span>내용: {{post.content}}</span>
+        <span>작성날짜: {{post.created_at}}</span>
+        <span>닉네임: {{post.username}}</span>
+          <span>조회수: {{post.view_count}}</span>
+        <v-btn 
+          @click="deletePost"
+          :class="{hide_button : !identification}"
+          elevation="2"
+        >
+          delete
+        </v-btn>
+        <post-form
+          v-if="post !== null" :post="post"
+          :identification="identification"
+        ></post-form>
+      </div>
+      <div>
+        <comment-form
+          v-if="post !== null" :post="post"
+          @createComment="loadPost"
+        >
+        </comment-form>
+        <h2>Comment</h2>
+        <comment-list
+          v-for="comment in comments"
+          :key="comment.id"
+          :comment="comment"
+          :post="post"
+          @deleteComment="loadPost"
+        >
+        </comment-list>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -45,17 +53,19 @@
 import axios from 'axios'
 import CommentForm from '../../components/comment/CommentForm.vue'
 import CommentList from '../../components/comment/CommentList.vue'
+import PostForm from './PostForm.vue'
 
 export default {
   name: 'PostDetail',
   components: {
     CommentForm,
-    CommentList
+    CommentList,
+    PostForm,
   },
   data: function() {
     return {
-      post : '',
-      identification : true,
+      post : null,
+      identification : false,
       comments : [],
     }
   },
@@ -92,9 +102,8 @@ export default {
           this.loadComment()
           this.post = res.data.data
           if (res.data.isSameUser) {
-            this.identification = false
+            this.identification = true
           }
-
           const created = new Date(this.post.created_at)
           const seconds = (new Date()-created)/1000
           const minutes = Math.floor(seconds / 60)
