@@ -4,7 +4,6 @@
     style=
     "
       background : var(--gray-color);
-      margin-top : 40px;
     ">
     <v-card-title style="border-bottom : 1px solid white">
       <v-text-field
@@ -17,12 +16,7 @@
         dark
       ></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn
-        elevation="2"
-        @click="$router.push('/postForm')"
-      >
-        작성
-      </v-btn>
+      <post-form :isCreate="true"></post-form>
     </v-card-title>
     <v-data-table
       :headers="headers"
@@ -44,6 +38,7 @@
 <script>
 
 import axios from 'axios'
+import PostForm from '../../views/community/PostForm.vue'
 export default {
   name:'PostList',
   data: function() {
@@ -57,6 +52,9 @@ export default {
         { text:'조회수', value:'view_count', sortable: true},
       ]
     }
+  },
+  components : {
+    PostForm,
   },
   methods: {
     goDetail : function(value) {
