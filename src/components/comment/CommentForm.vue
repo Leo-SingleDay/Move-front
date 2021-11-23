@@ -1,15 +1,17 @@
 <template>
   <div>
     <v-textarea
-      label="One row"
+      label="댓글 작성"
       auto-grow
       outlined
       rows="1"
       row-height="15"
       v-model.trim="content"
+      
     >
     </v-textarea>
     <v-btn
+      style="display: inline-block"
       elevation ="2"
       @click="commentCreate"
     >

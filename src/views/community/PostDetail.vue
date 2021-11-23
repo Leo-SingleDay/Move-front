@@ -1,51 +1,81 @@
 <template>
-  <div
-    
-  >
+  <div>
     <header>
       <h1 class="title_letter">COMMUNITY</h1>
     </header>
-    <section
-      style="border: 1px solid white"
-    >
-      <div
-        v-if="post !== null"
+    <div
       >
-        <span>제목: {{post.title}}</span>
-        <v-spacer></v-spacer>
-        <span>내용: {{post.content}}</span>
-        <span>작성날짜: {{post.created_at}}</span>
-        <span>닉네임: {{post.username}}</span>
-          <span>조회수: {{post.view_count}}</span>
-        <v-btn 
-          @click="deletePost"
-          :class="{hide_button : !identification}"
-          elevation="2"
+      <template>
+        <v-card 
         >
-          delete
-        </v-btn>
-        <post-form
-          v-if="post !== null" :post="post"
-          :identification="identification"
-        ></post-form>
-      </div>
-      <div>
-        <comment-form
-          v-if="post !== null" :post="post"
-          @createComment="loadPost"
-        >
-        </comment-form>
-        <h2>Comment</h2>
-        <comment-list
-          v-for="comment in comments"
-          :key="comment.id"
-          :comment="comment"
-          :post="post"
-          @deleteComment="loadPost"
-        >
-        </comment-list>
-      </div>
-    </section>
+          <v-toolbar
+            style="background: var(--gray-color);"
+            dark
+          ><span>제목: {{post.title}}</span>
+          </v-toolbar>
+          <v-card-text style="background: var(--white-color);">
+            <div
+              v-if="post !== null"
+            >
+              <v-spacer></v-spacer>
+              <div class="post_info_container">
+                <span style="">작성날짜: {{post.created_at}}</span> |
+                <span style="">닉네임: {{post.username}}</span> |
+                <span>조회수: {{post.view_count}}</span>
+              </div>
+              <v-textarea
+                readonly
+                outlined
+                name="input-7-4"
+                label="글 내용"
+                :value="post.content"
+              ></v-textarea>
+              
+              <div></div>
+              <v-btn 
+                @click="deletePost"
+                :class="{hide_button : !identification}"
+                elevation="2"
+              >
+                delete
+              </v-btn>
+              <post-form
+                v-if="post !== null" :post="post"
+                :identification="identification"
+              ></post-form>
+            </div>
+            <hr>
+            <div>
+              <comment-form
+                style="margin-top: 30px;"
+                v-if="post !== null" :post="post"
+                @createComment="loadPost"
+              >
+              </comment-form>
+              <br>
+              <h2>CommentList</h2>
+              <br>
+              <comment-list
+                v-for="comment in comments"
+                :key="comment.id"
+                :comment="comment"
+                :post="post"
+                @deleteComment="loadPost"
+              >
+              </comment-list>
+            </div>
+          </v-card-text>
+          <v-card-actions class="justify-end" style="background: var(--gray-color);">
+            <!-- 혹시몰라 놔둔 버튼 -->
+            <v-btn
+              text
+              @click="dialog.value = false"
+              style="color: var(--white-color);"
+            ></v-btn>
+          </v-card-actions>
+        </v-card>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -165,5 +195,11 @@ export default {
 <style>
   .hide_button {
     display: none;
+  }
+
+  .post_info_container {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 </style>

@@ -1,5 +1,6 @@
 <template>
-  <v-app>
+  <!-- 로그인상태일 경우 nav바 -->
+  <v-app v-if="isLogin">
     <v-app-bar
       app
       class="app-bar"
@@ -17,18 +18,20 @@
           <router-link to="/movies">Movies</router-link> |  
           <router-link to="/community">Community</router-link> |  
           <router-link @click.native="logout" to="#">Logout</router-link>
-          <router-link to="/">INTRO</router-link> |  
         </span>
         <span v-else>
           <router-link to="/login">Login</router-link> |
           <router-link to="/signup">Signup</router-link>
         </span>
+        
       </div>
+      
     </v-app-bar>
     <hr>
 
     <v-main>
       <v-container grid-list-md>
+        <sign-up></sign-up>
         <router-view 
         @login="isLogin=true"
       />
@@ -39,16 +42,32 @@
       
     </v-footer>
   </v-app>
+  <!-- 로그인 아닐경우 인덱스화면 보여주기 -->
+  <v-app v-else id="app" style="background: none">
+    <v-main>
+      <v-container grid-list-md>
+        <router-view
+        @login="isLogin=true"
+      />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 
 
 <script>
+import video from '../src/assets/film_065___4K_res.mp4'
+
 export default {
   name: '',
+  components : {
+
+  },
   data: function () {
     return {
       isLogin: false,
+      video: video,
     }
   },
   methods: {

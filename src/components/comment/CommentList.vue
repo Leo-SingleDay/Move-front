@@ -1,14 +1,43 @@
 <template>
   <div>
-    <p>내용 : {{comment.content}}</p>
-    <p>작성일: {{comment.created_at}}</p>
-    <p>닉네임: {{comment.username}}</p>
-    <button 
-      v-if="comment.isSameUser"
-      @click="commentDelete"
+    <div
+      style=
+        "
+          background: var(--background-color);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: white;
+          height: 50px;
+          padding: 10px;
+        "
     >
-      Del
-    </button>
+      <div>제목: {{post.title}}</div>
+      <div>
+        <span>작성일: {{comment.created_at}}</span> | 
+        <span>닉네임: {{comment.username}}</span> | 
+        <button 
+          style=
+            "
+              background: red;
+              padding: 3px;
+              border-radius: 3px;
+            "
+          v-if="comment.isSameUser"
+          @click="commentDelete"
+        >
+          Del
+        </button>
+      </div>
+    </div>
+    <v-textarea
+      auto-grow
+      outlined
+      rows="1"
+      row-height="15"
+      :value="comment.content"
+      readonly
+    ></v-textarea>
     <hr>
   </div>
 </template>
