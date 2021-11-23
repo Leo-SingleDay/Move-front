@@ -7,26 +7,27 @@
       transition="dialog-bottom-transition"
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
+        <v-img
           v-bind="attrs"
           v-on="on"
+          class="white--text align-end"
+          :src="movie.poster_path"
+          max-height="550"
+          max-width="1150"
         >
-          MoreInfo
-        </v-btn>
+        </v-img>
       </template>
       <v-card>
         <v-toolbar
           dark
-          color="primary"
+          color= var(--gray-color)
         >
           <v-btn
             icon
             dark
             @click="dialog = false"
           >
-            <v-icon>mdi-close</v-icon>
+            <v-icon color = var(--gold-color)>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title>{{ movie.title }}</v-toolbar-title>
           <v-spacer></v-spacer>
@@ -35,14 +36,16 @@
               dark
               text
               @click="dialog = false"
+              color = var(--gold-color)
             >
               OK
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-list
+        <v-list style="background-color: var(--background-color);"
           three-line
           subheader
+          dark
         >
           <iframe width="900" height="600" :src="movie.video_path" frameborder="0"></iframe>
           <v-divider></v-divider>
@@ -86,5 +89,7 @@ export default {
 </script>
 
 <style>
-
+pre {
+    color: var(--white-color);
+}
 </style>

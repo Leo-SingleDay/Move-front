@@ -7,7 +7,7 @@
         >
           
            
-              <event-detail :movie="movie"></event-detail>
+          <event-detail :movie="movie"></event-detail>
            
           
         </swiper-slide>
