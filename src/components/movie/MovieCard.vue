@@ -1,21 +1,25 @@
 <template>
   <div>
-      <swiper 
-        class="swiper" 
-        :options="swiperOption"
-      >
-        <swiper-slide 
-          v-for="movie in movies"
-          :key="movie.id"
-          :style="{'background-image': 'url('+ movie.poster_path +')'}"
+    
+        <swiper 
+          class="swiper" 
+          :options="swiperOption"
         >
-          <movie-card-detail :movie="movie"></movie-card-detail>
-        </swiper-slide>
+          <swiper-slide 
+            v-for="movie in movies"
+            :key="movie.id"
+            :style="{'background-image': 'url('+ movie.poster_path +')'}"
+          >
+           
+              <movie-card-detail :movie="movie"></movie-card-detail>
         
-        <div class="swiper-pagination swiper-pagination-white" slot="pagination"></div>
-        <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
-        <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
-      </swiper>
+            
+          </swiper-slide>
+          
+          <div class="swiper-pagination swiper-pagination-white" slot="pagination"></div>
+          <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+          <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
+        </swiper>
   </div> 
 </template>
 
