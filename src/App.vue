@@ -1,7 +1,7 @@
 <template>
   <!-- 로그인상태일 경우 nav바 -->
   <v-app v-if="isLogin">
-    <v-app-bar
+    <v-app-bar 
       app
       class="app-bar"
       dark
@@ -10,40 +10,38 @@
         background: var(--background-color);
       "
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title>M O V E !</v-toolbar-title>
+      <v-toolbar-title>
+        <img 
+          :src="logo"
+          style="width: 80px;"
+        >
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <div id="nav">
         <span v-if="isLogin"> 
           <router-link to="/movies">Movies</router-link> |  
           <router-link to="/community">Community</router-link> |
-          <router-link to="/profile"><v-avatar color="grey" size="32">user</v-avatar></router-link> |    
-          <router-link @click.native="logout" to="#">Logout</router-link>
+          <router-link @click.native="logout" to="#">Logout</router-link> | 
+          <router-link to="/profile"><v-icon color="grey" size="32">{{userIcon}}</v-icon></router-link>
         </span>
         <span v-else>
           <router-link to="/login">Login</router-link> |
           <router-link to="/signup">Signup</router-link>
         </span>
-        
       </div>
-      
     </v-app-bar>
     <hr>
 
     <v-main>
       <v-container grid-list-md>
-        <sign-up></sign-up>
         <router-view 
         @login="isLogin=true"
       />
       </v-container>
     </v-main>
 
-    <v-footer app>
-      
-    </v-footer>
   </v-app>
-  <!-- 로그인 아닐경우 인덱스화면 보여주기 -->
+  <!-- 로그인 아닐경우 navbar , footer 제외하고 새로운 app 보여주기 -->
   <v-app v-else id="app" style="background: none">
     <v-main>
       <v-container grid-list-md>
@@ -59,6 +57,9 @@
 
 <script>
 import video from '../src/assets/film_065___4K_res.mp4'
+import logo from '../src/assets/logo3.png'
+import { mdiAccountCircle } from '@mdi/js';
+
 
 export default {
   name: '',
@@ -69,6 +70,9 @@ export default {
     return {
       isLogin: false,
       video: video,
+      logo: logo,
+      userIcon : mdiAccountCircle,
+
     }
   },
   methods: {
@@ -80,11 +84,16 @@ export default {
   },
   created: function () {
     const token = localStorage.getItem('jwt')
-
     if (token) {
       this.isLogin = true
     }
-  }
+  },
+  updated : function () {
+    const token = localStorage.getItem('jwt')
+    if (token) {
+      this.isLogin = true
+    }
+  },
 }
 </script>
 

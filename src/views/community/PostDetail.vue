@@ -3,11 +3,9 @@
     <header>
       <h1 class="title_letter">COMMUNITY</h1>
     </header>
-    <div
-      >
+    <div>
       <template>
-        <v-card 
-        >
+        <v-card>
           <v-toolbar
             style="background: var(--gray-color);"
             dark
@@ -32,19 +30,31 @@
               ></v-textarea>
               
               <div></div>
-              <v-btn 
-                @click="deletePost"
-                :class="{hide_button : !identification}"
-                elevation="2"
-              >
-                delete
-              </v-btn>
               <post-form
                 v-if="post !== null" :post="post"
                 :identification="identification"
               ></post-form>
+              <v-btn 
+                @click="deletePost"
+                :class="{hide_button : !identification}"
+                elevation="2"
+                style="background: #ff5252; color:white; margin-left: 15px;"
+              >
+                DELETE
+              </v-btn>
             </div>
             <hr>
+            
+          </v-card-text>
+        </v-card>
+        <br><br>
+        <v-card>
+          <v-toolbar
+            style="background: var(--gray-color);"
+            dark
+          ><span>댓글</span>
+          </v-toolbar>
+          <v-card-text style="background: var(--white-color);">
             <div>
               <comment-form
                 style="margin-top: 30px;"
@@ -52,8 +62,6 @@
                 @createComment="loadPost"
               >
               </comment-form>
-              <br>
-              <h2>CommentList</h2>
               <br>
               <comment-list
                 v-for="comment in comments"
@@ -65,14 +73,6 @@
               </comment-list>
             </div>
           </v-card-text>
-          <v-card-actions class="justify-end" style="background: var(--gray-color);">
-            <!-- 혹시몰라 놔둔 버튼 -->
-            <v-btn
-              text
-              @click="dialog.value = false"
-              style="color: var(--white-color);"
-            ></v-btn>
-          </v-card-actions>
         </v-card>
       </template>
     </div>
@@ -145,7 +145,7 @@ export default {
             result = '방금 전'
           } else if (minutes < 60) {
             result = minutes + "분 전"
-          } else if (hours < 60) {
+          } else if (hours < 24) {
             result = hours + "시간 전"
           } else {
             result = days + "일 전"
@@ -172,7 +172,7 @@ export default {
           result = '방금 전'
         } else if (minutes < 60) {
           result = minutes + "분 전"
-        } else if (hours < 60) {
+        } else if (hours < 24) {
           result = hours + "시간 전"
         } else {
           result = days + "일 전"

@@ -90,7 +90,7 @@ export default {
               result = '방금 전'
             } else if (minutes < 60) {
               result = minutes + "분 전"
-            } else if (hours < 60) {
+            } else if (hours < 24) {
               result = hours + "시간 전"
             } else {
               result = days + "일 전"
