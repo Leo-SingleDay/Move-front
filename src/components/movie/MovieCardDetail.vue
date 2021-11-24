@@ -10,6 +10,7 @@
         <v-img
           v-bind="attrs"
           v-on="on"
+          @click="getDetail"
           class="white--text align-end"
           :src="movie.poster_path"
           max-height="450"
@@ -20,20 +21,21 @@
       <v-card>
         <v-toolbar
           dark
-          color="primary"
+          color= var(--gray-color)
         >
           <v-btn
             icon
             dark
             @click="dialog = false"
           >
-            <v-icon>mdi-close</v-icon>
+            <v-icon color = var(--gold-color)>mdi-close</v-icon>
           </v-btn>
           <v-toolbar-title>{{ movie.title }}</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
             <v-btn
               dark
+              color = var(--gold-color)
               text
               @click="dialog = false"
             >
@@ -44,13 +46,17 @@
         <v-list
           three-line
           subheader
+          dark
         >
           <button @click="like">
             <v-icon v-show="likeInfo.like" color="red">mdi-heart</v-icon>
             <v-icon v-show="!likeInfo.like" color="red">mdi-heart-outline</v-icon>
           </button>
-          <span v-show="likeInfo.like">{{likeInfo.count}}</span>
-          <span v-show="!likeInfo.like">{{likeInfo.count}}</span>
+          <span v-show="likeInfo.like"> {{likeInfo.count}}</span>
+          <span v-show="!likeInfo.like"> {{likeInfo.count}}</span>
+          <br>
+          <v-icon color="yellow">mdi-star</v-icon>
+          <span> {{avgRating}} ({{reviews.length}})</span>
           <v-divider></v-divider>
           <img :src="movie.poster_path" alt="poser-image">
           <v-list-item>
@@ -80,6 +86,7 @@
               >
                 <span> 
                   <v-rating
+                    color="var(--gold-color)"
                     :value="review.rank"
                     icon-label="custom icon label text {0} of {1}"
                     readonly
@@ -102,10 +109,11 @@
                 hide-details="auto"
               ></v-text-field>
               <v-rating
+                color="var(--gold-color)"
                 v-model.trim="rank"
                 icon-label="custom icon label text {0} of {1}"
               ></v-rating>
-              <button @click="createReview">작성</button>
+              <v-button @click="createReview">작성</v-button>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -228,13 +236,37 @@ export default {
     },
   },
   computed: {
-    countLike: function () {
-      return this.movie.like_users.length
+    avgRating: function () {
+      let sum = 0
+      if (this.reviews.length > 0) {
+        this.reviews.forEach(review => {
+          sum += review.rank
+        });
+        let avg = sum/this.reviews.length
+        return avg
+      } else {
+        return 0
+      }
     },
   },
 }
 </script>
 
 <style>
-
+.theme--dark.v-sheet {
+    background-color: var(--background-color);;
+    border-color: #ccbaba;
+    color: var(--gold-color);
+}
+.v-list-item__title {
+    align-self: center;
+    font-size: 1.5rem;
+}
+.v-list-item__subtitle {
+  font-size: 1rem;
+}
+.text-white {
+    color: var(--white-color);
+    font-size: 1rem;
+}
 </style>

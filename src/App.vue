@@ -16,7 +16,8 @@
       <div id="nav">
         <span v-if="isLogin"> 
           <router-link to="/movies">Movies</router-link> |  
-          <router-link to="/community">Community</router-link> |  
+          <router-link to="/community">Community</router-link> |
+          <router-link to="/profile"><v-avatar color="grey" size="32">user</v-avatar></router-link> |    
           <router-link @click.native="logout" to="#">Logout</router-link>
         </span>
         <span v-else>

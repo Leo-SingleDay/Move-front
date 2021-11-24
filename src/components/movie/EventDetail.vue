@@ -42,7 +42,7 @@
             </v-btn>
           </v-toolbar-items>
         </v-toolbar>
-        <v-list style="background-color: var(--background-color);"
+        <v-list 
           three-line
           subheader
           dark
@@ -64,7 +64,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>줄거리</v-list-item-title>
-              <v-list-item-subtitle><pre>{{ movie.overview }}</pre></v-list-item-subtitle>
+              <v-list-item-subtitle><pre class="text-white">{{ movie.overview }}</pre></v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -89,7 +89,20 @@ export default {
 </script>
 
 <style>
-pre {
-    color: var(--white-color);
+.theme--dark.v-sheet {
+    background-color: var(--background-color);;
+    border-color: #ccbaba;
+    color: var(--gold-color);
+}
+.v-list-item__title {
+    align-self: center;
+    font-size: 1.5rem;
+}
+.v-list-item__subtitle {
+  font-size: 1rem;
+}
+.text-white {
+    color: var(--white-color)hite;
+    font-size: 1rem;
 }
 </style>
