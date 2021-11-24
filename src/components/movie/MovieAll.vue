@@ -13,9 +13,9 @@
                 max-height="400"
                 color= var(--background-color)
               >
-              <movie-card-detail :movie="movie"></movie-card-detail>
-                 
+              <movie-card-detail :movie="movie"></movie-card-detail>              
               </v-card>
+              <span id="col-bg">{{movie.title}}</span>
             </v-col>
         </v-row>
       </div>
@@ -47,4 +47,7 @@ export default {
 </script>
 
 <style>
+#col-bg {
+  color: var(--background-color)
+}
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div>
     <event-movie-list :movies="eventMovies"></event-movie-list>
-    <h3 class="font-gold">추천</h3>
+    <h3 class="font-gold movie-title">추천 영화</h3>
     <movie-card :movies="recommendMovies"></movie-card>
-    <h3 class="font-gold">최신</h3>
+    <h3 class="font-gold movie-title">최신 영화</h3>
     <movie-card :movies="latestMovies"></movie-card>
-    <h3 class="font-gold">인기</h3>
+    <h3 class="font-gold movie-title">인기 영화</h3>
     <movie-card :movies="popularityMovies"></movie-card>
-    <h3 class="font-gold">전체</h3>
+    <h3 class="font-gold movie-title">전체 영화</h3>
     <movie-all :movies="allMovies"></movie-all>
   </div>
 </template>
@@ -124,5 +124,11 @@ export default {
   }
   .font-gold {
     color: var(--gold-color);
+  }
+  .movie-title {
+    margin: 1rem;
+    text-align: left; 
+    text-decoration: underline;
+    text-underline-position:under;
   }
 </style>
