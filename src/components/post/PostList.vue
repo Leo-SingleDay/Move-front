@@ -71,7 +71,7 @@ export default {
     getPosts: function () {
       axios({
         method: 'get',
-        url: 'http://127.0.0.1:8000/community/',
+        url: 'http://18.116.47.173/community/',
         headers: this.setToken()
 
       })

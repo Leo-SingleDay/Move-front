@@ -111,7 +111,7 @@ export default {
     deletePost : function () {
       axios({
         method: 'delete',
-        url: `http://127.0.0.1:8000/community/${this.post.id}/`,
+        url: `http://18.116.47.173/community/${this.post.id}/`,
         headers: this.setToken()
       })
         .then(() => {
@@ -124,7 +124,7 @@ export default {
     loadPost : function () {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/community/${this.$route.query.pk}/`,
+        url: `http://18.116.47.173/community/${this.$route.query.pk}/`,
         headers: this.setToken()
       })
         .then(res => {

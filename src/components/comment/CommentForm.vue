@@ -48,7 +48,7 @@ export default {
       }
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/community/${this.post.id}/comments/`,
+        url: `http://18.116.47.173/community/${this.post.id}/comments/`,
         data: comment,
         headers: this.setToken()
       })

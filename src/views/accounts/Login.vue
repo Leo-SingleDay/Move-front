@@ -94,7 +94,7 @@ export default {
 		login: function () {
       axios({
         method: 'post',
-        url: 'http://127.0.0.1:8000/accounts/api-token-auth/',
+        url: 'http://18.116.47.173/accounts/api-token-auth/',
         data: this.credentials,
       })
         .then(res => {
