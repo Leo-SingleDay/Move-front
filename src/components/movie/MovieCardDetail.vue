@@ -158,7 +158,7 @@ export default {
     like: function () {
       axios({
         method: 'post',
-        url: `http://127.0.0.1:8000/movies/${this.movie.id}/like/`,
+        url: `http://18.116.47.173/movies/${this.movie.id}/like/`,
         headers: this.setToken()
       })
         .then(res => {
@@ -171,7 +171,7 @@ export default {
     getLike: function () {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${this.movie.id}/like/`,
+        url: `http://18.116.47.173/movies/${this.movie.id}/like/`,
         headers: this.setToken()
       })
         .then(res => {
@@ -184,7 +184,7 @@ export default {
     getReview: function () {
       axios({
         method: 'get',
-        url: `http://127.0.0.1:8000/movies/${this.movie.id}/reviews/`,
+        url: `http://18.116.47.173/movies/${this.movie.id}/reviews/`,
         headers: this.setToken()
       })
         .then(res => {
@@ -203,7 +203,7 @@ export default {
         
         axios({
          method: 'post',
-         url: `http://127.0.0.1:8000/movies/${this.movie.id}/reviews/`,
+         url: `http://18.116.47.173/movies/${this.movie.id}/reviews/`,
          data: reviewItem,
          headers: this.setToken()
        })
@@ -220,7 +220,7 @@ export default {
     deleteReview: function () {
       axios({
         method: 'delete',
-        url: `http://127.0.0.1:8000/movies/reviews/${this.reviews[0].id}/`,
+        url: `http://18.116.47.173/movies/reviews/${this.reviews[0].id}/`,
         headers: this.setToken()
       })
         .then(() => {

@@ -124,7 +124,7 @@ export default {
       if (post.title && post.content) {
         axios({
           method:'post',
-          url: 'http://127.0.0.1:8000/community/',
+          url: 'http://18.116.47.173/community/',
           data: post,
           headers: this.setToken()
         })
@@ -145,7 +145,7 @@ export default {
       if (post.title && post.content) {
         axios({
           method:'put',
-          url: `http://127.0.0.1:8000/community/${post.id}/`,
+          url: `http://18.116.47.173/community/${post.id}/`,
           data: post,
           headers: this.setToken()
         })
@@ -161,13 +161,10 @@ export default {
     
   },
   created: function () {
-    console.log(this.isCreate)
-    
     if (this.identification){
       this.title = this.post.title
       this.content = this.post.content
       this.id = this.post.id
-      console.log(this.title)
     }
   }
 
