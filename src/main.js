@@ -11,7 +11,6 @@ import vuetify from './plugins/vuetify'
 import VueTyperPlugin from 'vue-typer'
 import { Plugin } from 'vue-responsive-video-background-player'
 
-
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin

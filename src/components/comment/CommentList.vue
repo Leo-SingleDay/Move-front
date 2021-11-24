@@ -12,22 +12,19 @@
           padding: 10px;
         "
     >
-      <div>제목: {{post.title}}</div>
+      <div>닉네임: {{comment.username}}</div>
       <div>
         <span>작성일: {{comment.created_at}}</span> | 
-        <span>닉네임: {{comment.username}}</span> | 
-        <button 
+        <v-icon 
           style=
             "
-              background: red;
-              padding: 3px;
-              border-radius: 3px;
+              color:red;
             "
           v-if="comment.isSameUser"
           @click="commentDelete"
         >
-          Del
-        </button>
+          {{trashIcon}}
+        </v-icon>
       </div>
     </div>
     <v-textarea
@@ -44,12 +41,19 @@
 
 <script>
 import axios from 'axios'
+import { mdiTrashCan } from '@mdi/js';
 
 export default {
   name: 'CommentList',
   props: {
     comment : Object,
     post : Object,
+  },
+  data: function () {
+    return {
+      trashIcon : mdiTrashCan,
+
+    }
   },
   methods: {
     setToken: function () {

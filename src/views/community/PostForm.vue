@@ -18,11 +18,11 @@
         :class="{hide_button : !identification}"
         style=
         "
-          background: var(--gold-color);
+          background: #4caf50; color: white;
         "
         v-bind="attrs"
         v-on="on"
-      >수정</v-btn>
+      >UPDATE</v-btn>
     </template>
     <template v-slot:default="dialog">
       <v-card 
