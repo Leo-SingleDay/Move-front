@@ -9,11 +9,11 @@
             >
               <v-card
                 class="mx-auto"
-                max-width="300"
-                max-height="400"
+                max-width="325"
+                max-height="425"
                 color= var(--background-color)
               >
-              <movie-card-detail :movie="movie"></movie-card-detail>              
+                <movie-card-detail :movie="movie"></movie-card-detail>              
               </v-card>
               <span id="col-bg">{{movie.title}}</span>
             </v-col>
