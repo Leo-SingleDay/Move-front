@@ -11,9 +11,9 @@
           v-bind="attrs"
           v-on="on"
           @click="getDetail"
-          class="white--text align-end"
+          class="white--text align-end image-ma"
           :src="movie.poster_path"
-          max-height="450"
+          max-height="400"
           max-width="300"
         >
         </v-img>
@@ -48,7 +48,9 @@
           subheader
           dark
         >
-          <button @click="like">
+          <img :src="movie.poster_path" alt="poser-image">
+          <v-divider></v-divider>
+           <button @click="like">
             <v-icon v-show="likeInfo.like" color="red">mdi-heart</v-icon>
             <v-icon v-show="!likeInfo.like" color="red">mdi-heart-outline</v-icon>
           </button>
@@ -58,7 +60,6 @@
           <v-icon color="yellow">mdi-star</v-icon>
           <span> {{avgRating}} ({{reviews.length}})</span>
           <v-divider></v-divider>
-          <img :src="movie.poster_path" alt="poser-image">
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>장르</v-list-item-title>
@@ -268,5 +269,8 @@ export default {
 .text-white {
     color: var(--white-color);
     font-size: 1rem;
+}
+.image-ma {
+  margin-top: 1.5rem;
 }
 </style>
