@@ -114,7 +114,7 @@
                 v-model.trim="rank"
                 icon-label="custom icon label text {0} of {1}"
               ></v-rating>
-              <v-button @click="createReview">작성</v-button>
+              <v-btn @click="createReview">작성</v-btn>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -244,6 +244,7 @@ export default {
           sum += review.rank
         });
         let avg = sum/this.reviews.length
+        avg = avg.toFixed(2)
         return avg
       } else {
         return 0
