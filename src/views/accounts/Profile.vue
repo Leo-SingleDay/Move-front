@@ -71,7 +71,7 @@ export default {
     getLikeGenres: function() {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/movies/like-genres/',
+        url: 'https://jongil.click/movies/like-genres/',
         headers: this.setToken()
       })
         .then(res => {
@@ -84,7 +84,7 @@ export default {
     getLikeMovies: function() {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/movies/like-movies/',
+        url: 'https://jongil.click/movies/like-movies/',
         headers: this.setToken()
       })
         .then(res => {

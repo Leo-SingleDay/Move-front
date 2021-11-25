@@ -48,7 +48,7 @@ export default {
       }
       axios({
         method: 'post',
-        url: `http://18.116.47.173/community/${this.post.id}/comments/`,
+        url: `https://jongil.click/community/${this.post.id}/comments/`,
         data: comment,
         headers: this.setToken()
       })

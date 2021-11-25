@@ -45,7 +45,7 @@ export default {
     getAllMovies: function() {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/movies/',
+        url: 'https://jongil.click/movies/',
         headers: this.setToken()
       })
         .then(res => {
@@ -58,7 +58,7 @@ export default {
     getEventMovies: function() {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/movies/event/',
+        url: 'https://jongil.click/movies/event/',
         headers: this.setToken()
       })
         .then(res => {
@@ -71,7 +71,7 @@ export default {
     getRecommendMovies: function() {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/movies/recommend/',
+        url: 'https://jongil.click/movies/recommend/',
         headers: this.setToken()
       })
         .then(res => {
@@ -84,7 +84,7 @@ export default {
     getLatestMovies: function() {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/movies/latest/',
+        url: 'https://jongil.click/movies/latest/',
         headers: this.setToken()
       })
         .then(res => {
@@ -97,7 +97,7 @@ export default {
     getPopularityMovies: function() {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/movies/popularity/',
+        url: 'https://jongil.click/movies/popularity/',
         headers: this.setToken()
       })
         .then(res => {

@@ -67,7 +67,7 @@ export default {
     commentDelete : function () {
       axios({
         method: 'delete',
-        url: `http://18.116.47.173/community/${this.post.id}/comments/${this.comment.id}/`,
+        url: `https://jongil.click/community/${this.post.id}/comments/${this.comment.id}/`,
         headers: this.setToken()
       })
         .then(() => {
