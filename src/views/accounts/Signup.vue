@@ -123,7 +123,7 @@ export default {
 		signup: function () {
       axios({
         method: 'post',
-        url: 'http://18.116.47.173/accounts/signup/',
+        url: 'https://jongil.click/accounts/signup/',
         data: this.credentials
       })
         .then(() => {

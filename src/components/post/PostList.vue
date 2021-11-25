@@ -71,7 +71,7 @@ export default {
     getPosts: function () {
       axios({
         method: 'get',
-        url: 'http://18.116.47.173/community/',
+        url: 'https://jongil.click/community/',
         headers: this.setToken()
 
       })

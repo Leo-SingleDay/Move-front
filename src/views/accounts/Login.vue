@@ -94,7 +94,7 @@ export default {
 		login: function () {
       axios({
         method: 'post',
-        url: 'http://18.116.47.173/accounts/api-token-auth/',
+        url: 'https://jongil.click/accounts/api-token-auth/',
         data: this.credentials,
       })
         .then(res => {

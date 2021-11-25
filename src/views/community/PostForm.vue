@@ -124,7 +124,7 @@ export default {
       if (post.title && post.content) {
         axios({
           method:'post',
-          url: 'http://18.116.47.173/community/',
+          url: 'https://jongil.click/community/',
           data: post,
           headers: this.setToken()
         })
@@ -145,7 +145,7 @@ export default {
       if (post.title && post.content) {
         axios({
           method:'put',
-          url: `http://18.116.47.173/community/${post.id}/`,
+          url: `https://jongil.click/community/${post.id}/`,
           data: post,
           headers: this.setToken()
         })
